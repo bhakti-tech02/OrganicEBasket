@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:oragnic_basket/models/product_models.dart';
 import 'package:oragnic_basket/widgets/product.dart';
 import '../constant.dart';
 
 class CategoriesItemScreen extends StatelessWidget {
   final String title;
+  final List<ProductModel> productModel;
 
-  CategoriesItemScreen({this.title});
+  CategoriesItemScreen({this.title,this.productModel});
 
   @override
   Widget build(BuildContext context) {
@@ -43,14 +45,15 @@ class CategoriesItemScreen extends StatelessWidget {
                         color: Colors.white,
                       ),
                       child: GridView.builder(
+                        physics: NeverScrollableScrollPhysics(),
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           mainAxisSpacing: 20,
                           childAspectRatio: 0.6,
                           crossAxisSpacing: 10,
                         ),
-                        itemBuilder: (ctx, index) => Product(),
-                        itemCount: 5,
+                        itemBuilder: (ctx, index) => Product(productModel: productModel[index],),
+                        itemCount: productModel.length,
                       ))),
             ],
           ),

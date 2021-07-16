@@ -44,7 +44,8 @@ class Categories extends StatelessWidget {
                       child: GridView.builder(
                           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(crossAxisCount: 3,mainAxisSpacing: 20,childAspectRatio: 0.9,),
 
-                          itemBuilder: (ctx,index) => CategoryItem(title: Data.categories[index].title,) ,//Data.categories_models[index],
+                          itemBuilder: (ctx,index) => CategoryItem(title: Data.categories[index].title,
+                          productModel: Data.categories[index].productModels,) ,//Data.categories_models[index],
                       itemCount: Data.categories.length,))),
             ],
           ),

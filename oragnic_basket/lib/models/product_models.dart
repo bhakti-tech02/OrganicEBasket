@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-class Product
+class ProductModel
 {
   final int id;
   final String title;
@@ -11,6 +11,6 @@ class Product
   final String description;
   final bool isAvailable;
 
-  Product({this.id,this.title,this.itemPrice,this.perItemPrice,this.image,this.reviews,this.description,this.isAvailable});
+  ProductModel({this.id,this.title,this.itemPrice,this.perItemPrice,this.image,this.reviews,this.description,this.isAvailable});
 
 }

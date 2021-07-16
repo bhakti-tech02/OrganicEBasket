@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
+import 'package:oragnic_basket/models/product_models.dart';
 import 'package:oragnic_basket/screens/category_items_screen.dart';
 
 import '../constant.dart';
 
 class CategoryItem extends StatelessWidget {
   final String title;
+  final List<ProductModel> productModel;
 
-  CategoryItem({this.title});
+  CategoryItem({this.title,this.productModel});
 
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
     return GestureDetector(
       onTap: (){
-        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => CategoriesItemScreen(title: title,)));
+        Navigator.of(context).push(MaterialPageRoute(builder: (ctx) => CategoriesItemScreen(title: title,productModel: productModel,)));
       },
       child: Container(
         margin: EdgeInsets.only(right: 12),

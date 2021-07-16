@@ -1,14 +1,41 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oragnic_basket/core/auth.dart';
 
-class SignupScreen extends StatelessWidget {
-  Widget buildSignupButton() {
+class SignupScreen extends StatefulWidget {
+
+  //key for saving textfields
+  @override
+  _SignupScreenState createState() => _SignupScreenState();
+}
+
+class _SignupScreenState extends State<SignupScreen> {
+  final _formKey = GlobalKey<FormState>();
+
+  String _email;
+
+  String _password;
+
+  String _name;
+
+  _save()
+  {
+    if(_formKey.currentState.validate())
+      {
+        //save the text fields and assign the value to the variable
+        _formKey.currentState.save();
+        Authentication.signup(context : context , email:_email , password:_password);
+
+      }
+  }
+
+  Widget buildSignupButton(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Text('Already have an account? '),
         TextButton(
-          onPressed: () {},
+          onPressed: _save,
           child: Text(
             'Sign in',
             style: TextStyle(
@@ -80,6 +107,10 @@ class SignupScreen extends StatelessWidget {
             // labelText: 'Name',
             //labelStyle: TextStyle(fontSize:k 24,fontWeight: FontWeight.bold),
             ),
+        onSaved: (value){
+          _name = value;
+        },
+
       ),
     );
   }
@@ -96,6 +127,9 @@ class SignupScreen extends StatelessWidget {
             // labelText: 'Name',
             //labelStyle: TextStyle(fontSize:k 24,fontWeight: FontWeight.bold),
             ),
+        onSaved: (value){
+          _email = value;
+        },
       ),
     );
   }
@@ -110,6 +144,9 @@ class SignupScreen extends StatelessWidget {
             prefixIcon: Icon(Icons.vpn_key, color: Colors.grey),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black))),
+        onSaved: (value){
+          _password = value ;
+        },
       ),
     );
   }
@@ -149,9 +186,17 @@ class SignupScreen extends StatelessWidget {
           SizedBox(
             height: mq.height * 0.08,
           ),
-          buildNameField(),
-          buildEmailField(),
-          buildPasswordField(),
+          Form(
+            key: _formKey,
+            child:Column(
+              children: [
+                buildNameField(),
+                buildEmailField(),
+                buildPasswordField(),
+
+              ],
+            )
+          ),
           SizedBox(
             height: mq.height * 0.06,
           ),
@@ -168,7 +213,7 @@ class SignupScreen extends StatelessWidget {
             )),
           ),
           buildLoginGoogleButton(mq),
-          buildSignupButton(),
+          buildSignupButton(context),
           // SizedBox(
           //   height: mq.height*0.04,
           // ),

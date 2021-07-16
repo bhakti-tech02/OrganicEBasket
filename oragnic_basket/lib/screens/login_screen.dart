@@ -1,7 +1,28 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:oragnic_basket/core/auth.dart';
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
+  @override
+  _LoginScreenState createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
+  final _formkey = GlobalKey<FormState>();
+
+  String _email;
+
+  String _password;
+
+  _save()
+  {
+    if(_formkey.currentState.validate())
+      {
+        _formkey.currentState.save();
+        Authentication.login(context:context,email: _email,password: _password);
+      }
+  }
+
   Widget buildSignupButton()
   {
     return Row(
@@ -22,7 +43,7 @@ class LoginScreen extends StatelessWidget {
           height: mq.height * 0.07,
           width: mq.width * 0.8,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: _save,
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40))),
@@ -57,12 +78,11 @@ class LoginScreen extends StatelessWidget {
     );
   }
 
-
   Widget buildEmailField() {
     return Container(
       margin: EdgeInsets.all(20),
       child: TextFormField(
-        
+
         decoration: InputDecoration(
             hintText: 'Email',
 
@@ -72,6 +92,9 @@ class LoginScreen extends StatelessWidget {
             // labelText: 'Name',
             //labelStyle: TextStyle(fontSize:k 24,fontWeight: FontWeight.bold),
             ),
+        onSaved: (value){
+          _email = value;
+        },
       ),
     );
   }
@@ -87,7 +110,11 @@ class LoginScreen extends StatelessWidget {
             prefixIcon: Icon(Icons.vpn_key, color: Colors.grey),
             focusedBorder: UnderlineInputBorder(
                 borderSide: BorderSide(color: Colors.black))),
+        onSaved: (value){
+          _password = value;
+        },
       ),
+
     );
   }
 
@@ -126,9 +153,17 @@ class LoginScreen extends StatelessWidget {
               SizedBox(
                 height: mq.height * 0.1,
               ),
-              buildEmailField(),
-              buildPasswordField(),
-              SizedBox(
+              Form(
+                key: _formkey,
+                child:Column(
+                  children: [
+
+                    buildEmailField(),
+                    buildPasswordField(),
+
+                  ],
+                ),
+              ),  SizedBox(
                 height: mq.height*0.09,
               ),
               buildLoginButton(mq),

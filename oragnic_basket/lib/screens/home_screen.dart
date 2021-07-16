@@ -3,58 +3,54 @@ import 'package:oragnic_basket/widgets/category_item.dart';
 import '../constant.dart';
 import '../data/data.dart';
 
-
 class HomeScreen extends StatelessWidget {
-Widget buildPopularDeals(mq)
-{
-  return Container(
-    padding: EdgeInsets.all(10),
-    height: mq.height * 0.29,
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius: BorderRadius.circular(30),
-    ),
-    child: Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              'Popluar Deals',
-              style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
-            ),
-            TextButton(
-                onPressed: () {},
-                child: Text(
-                  'See All',
-                  style: TextStyle(color: kPrimaryColor, fontSize: 20),
-                ))
-          ],
-        ),
-        Divider(
-          color: Colors.grey,
-        ),
-        Container(
-          padding: EdgeInsets.only(top:6),
-          height: mq.height*0.17,
-
-          child: ListView.builder(
-            shrinkWrap: true,
-            scrollDirection: Axis.horizontal,
-            itemCount: Data.popularDeals.length,
-            itemBuilder: (ctx, index) => Data.popularDeals[index],
-          ),
-        ),
-      ],
-    ),
-  );
-}
-  Widget buildOffer(mq)
-  {
+  Widget buildPopularDeals(mq) {
     return Container(
-      height: mq.height*0.185,
+      padding: EdgeInsets.all(10),
+      height: mq.height * 0.29,
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(30),
+      ),
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Popluar Deals',
+                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 22),
+              ),
+              TextButton(
+                  onPressed: () {},
+                  child: Text(
+                    'See All',
+                    style: TextStyle(color: kPrimaryColor, fontSize: 20),
+                  ))
+            ],
+          ),
+          Divider(
+            color: Colors.grey,
+          ),
+          Container(
+            padding: EdgeInsets.only(top: 6),
+            height: mq.height * 0.17,
+            child: ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: Data.popularDeals.length,
+              itemBuilder: (ctx, index) => Data.popularDeals[index],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
+  Widget buildOffer(mq) {
+    return Container(
+      height: mq.height * 0.185,
       child: ListView.builder(
         shrinkWrap: true,
         scrollDirection: Axis.horizontal,
@@ -64,7 +60,7 @@ Widget buildPopularDeals(mq)
     );
   }
 
-  Widget buildCategoryContainer(Size mq,BuildContext context) {
+  Widget buildCategoryContainer(Size mq, BuildContext context) {
     return Container(
       padding: EdgeInsets.all(10),
       height: mq.height * 0.29,
@@ -95,13 +91,16 @@ Widget buildPopularDeals(mq)
             color: Colors.grey[200],
           ),
           Container(
-            padding: EdgeInsets.only(top:6),
-            height: mq.height*0.17,
+            padding: EdgeInsets.only(top: 6),
+            height: mq.height * 0.17,
             child: ListView.builder(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
               itemCount: Data.categories.length,
-              itemBuilder: (ctx, index) => CategoryItem(title: Data.categories[index].title),
+              itemBuilder: (ctx, index) => CategoryItem(
+                title: Data.categories[index].title,
+                productModel: Data.categories[index].productModels,
+              ),
             ),
           ),
         ],
@@ -166,17 +165,21 @@ Widget buildPopularDeals(mq)
                 decoration: BoxDecoration(
                   color: Colors.grey[200],
                   borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(30),
+                    topRight: Radius.circular(30),
                     topLeft: Radius.circular(30),
                   ),
                 ),
                 //height: mq.height,
                 child: Column(
                   children: [
-                    buildCategoryContainer(mq,context),
-                    SizedBox(height: 10,),
+                    buildCategoryContainer(mq, context),
+                    SizedBox(
+                      height: 10,
+                    ),
                     buildOffer(mq),
-                    SizedBox(height: 10,),
+                    SizedBox(
+                      height: 10,
+                    ),
                     buildPopularDeals(mq),
                   ],
                 ),

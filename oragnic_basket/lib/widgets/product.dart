@@ -1,9 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:oragnic_basket/core/store.dart';
+import 'package:oragnic_basket/models/product_models.dart';
 
 import '../constant.dart';
 
 class Product extends StatelessWidget
 {
+  final ProductModel productModel;
+
+  Product({this.productModel});
   @override
   Widget build(BuildContext context) {
 
@@ -27,7 +32,7 @@ class Product extends StatelessWidget
           Padding(
             padding: const EdgeInsets.only(top: 5.0),
             child: Text(
-              'Strawberry',
+              productModel.title,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 22,
@@ -53,7 +58,9 @@ class Product extends StatelessWidget
                   ),
                 ),
                 GestureDetector(
-                  onTap: (){},
+                  onTap: (){
+                    AddProduct(productModel);
+                  },
                   child: Container(
                     height: 50,
                     width: 45,
