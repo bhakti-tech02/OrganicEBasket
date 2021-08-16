@@ -24,7 +24,7 @@ class _SignupScreenState extends State<SignupScreen> {
       {
         //save the text fields and assign the value to the variable
         _formKey.currentState.save();
-        Authentication.signup(context : context , email:_email , password:_password);
+        Authentication.signup(context : context ,name: _name, email:_email , password:_password);
 
       }
   }
@@ -54,7 +54,7 @@ class _SignupScreenState extends State<SignupScreen> {
           height: mq.height * 0.07,
           width: mq.width * 0.8,
           child: ElevatedButton(
-            onPressed: () {},
+            onPressed: _save,
             style: ElevatedButton.styleFrom(
                 shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40))),
@@ -110,6 +110,12 @@ class _SignupScreenState extends State<SignupScreen> {
         onSaved: (value){
           _name = value;
         },
+        // ignore: missing_return
+        validator: (_value){
+          if(_value.isEmpty){
+            return 'Please enter name';
+          }
+        },
 
       ),
     );
@@ -130,6 +136,13 @@ class _SignupScreenState extends State<SignupScreen> {
         onSaved: (value){
           _email = value;
         },
+        // ignore: missing_return
+        validator: (_value){
+
+          if(RegExp('^[a-zA-Z0-9+_.-]+@[a-zA-Z0-9.-]+\$').hasMatch(_value)){
+            return "Enter a valid email";
+          }
+        },
       ),
     );
   }
@@ -146,6 +159,18 @@ class _SignupScreenState extends State<SignupScreen> {
                 borderSide: BorderSide(color: Colors.black))),
         onSaved: (value){
           _password = value ;
+        },
+        // ignore: missing_return
+        validator: (value){
+          if(value.isEmpty)
+          {
+
+            return('Password must not be empty!');
+          }
+          if(value.length < 6)
+          {
+            return ('Password too short!');
+          }
         },
       ),
     );

@@ -1,6 +1,8 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oragnic_basket/core/auth.dart';
+import 'package:oragnic_basket/core/store.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginScreen extends StatefulWidget {
   @override
@@ -117,7 +119,7 @@ class _LoginScreenState extends State<LoginScreen> {
 
     );
   }
-
+MyStore store = VxState.store;
   @override
   Widget build(BuildContext context) {
     final mq = MediaQuery.of(context).size;
@@ -166,7 +168,13 @@ class _LoginScreenState extends State<LoginScreen> {
               ),  SizedBox(
                 height: mq.height*0.09,
               ),
-              buildLoginButton(mq),
+              VxBuilder(builder: (_,__,___){
+                return store.isLoading == true
+                    ? CircularProgressIndicator()
+                    : buildLoginButton(mq);
+              },
+                  mutations: {ToggleLoading}),
+
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Center(child: Text('or',style: TextStyle(fontSize: 18,color:Colors.grey,),)),

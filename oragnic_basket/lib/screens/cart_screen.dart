@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:oragnic_basket/constant.dart';
+import 'package:oragnic_basket/core/Cart.dart';
 import 'package:oragnic_basket/core/store.dart';
 import 'package:oragnic_basket/widgets/cart_item.dart';
 import 'package:velocity_x/velocity_x.dart';
@@ -45,10 +46,10 @@ class CartScreen extends StatelessWidget {
                     borderRadius: BorderRadius.circular(30),
                     color: Colors.white,
                   ),
-                  child: store.allProductsInCart.length == 0 ? Text('No products added!') : ListView.builder(
-                      itemCount: store.allProductsInCart.length,
+                  child: store.cart.allProductsInCart.length == 0 ? Text('No products added!') : ListView.builder(
+                      itemCount: store.cart.allProductsInCart.length,
                       itemBuilder: (ctx, index) => CartItem(
-                        productModel: store.allProductsInCart[index],
+                        productModel: store.cart.allProductsInCart[index],
                       ),
                   ),
                 ),
@@ -64,7 +65,7 @@ class CartScreen extends StatelessWidget {
                       mutations: {AddProduct,RemoveProduct},
                       builder : (context,_,__) =>
                        Text(
-                        'Total: ${store.totalPrice}',
+                        'Total: ${store.cart.totalPrice}',
                         style: TextStyle(fontSize: 21,fontWeight: FontWeight.bold),
                       ),
                     ),

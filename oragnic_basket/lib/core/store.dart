@@ -1,37 +1,26 @@
 import 'package:oragnic_basket/models/product_models.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-class MyStore extends VxStore{
-  List<ProductModel> allProductsInCart = [];
-int totalPrice = 0;
-}
+import 'Cart.dart';
 
-class AddProduct extends VxMutation<MyStore>
-{
-  final ProductModel product;
-  AddProduct(this.product);
-  @override
-  perform() {
-   store.allProductsInCart.add(product);
-   int sum = 0;
-   store.allProductsInCart.forEach((element) {
-     sum = sum + element.itemPrice;
-   });
-   store.totalPrice = sum;
+class MyStore extends VxStore {
+
+  Cart cart;
+
+//spinner dekhase tyare true thase
+  bool isLoading = false;
+
+  MyStore() {
+    cart = Cart();
   }
 }
-
-class RemoveProduct extends VxMutation<MyStore>
-{
-  final ProductModel product;
-  RemoveProduct(this.product);
+  class ToggleLoading extends VxMutation<MyStore>
+  {
   @override
   perform() {
-    store.allProductsInCart.remove(product);
-    int sum = 0;
-    store.allProductsInCart.forEach((element) {
-      sum = sum + element.itemPrice;
-    });
-    store.totalPrice = sum;
+    store.isLoading = !store.isLoading;
   }
-}
+
+  }
+
+
